@@ -1,4 +1,6 @@
 
+using Reparing_Shoes.Pattern;
+
 namespace Reparing_Shoes
 {
     public class Program
@@ -13,6 +15,7 @@ namespace Reparing_Shoes
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ICustomersRepository,CustomerRepository>();
 
             var app = builder.Build();
 
