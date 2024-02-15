@@ -34,7 +34,7 @@ namespace Reparing_Shoes.Pattern
 
         public IEnumerable<Shoes> GetAllShoes()
         {
-            try
+            try 
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
@@ -99,11 +99,11 @@ namespace Reparing_Shoes.Pattern
             }
         }
 
-        public ShoesDTO UpdateShoes(ShoesDTO shoes)
+        public ShoesDTO UpdateShoes(ShoesDTO shoes,int id)
         {
             try
             {
-                string query = "update shoes set Name = @Name,status = @status,left_time = @leftTime,instruction = @instruction,deadline = @deadTime,service_price = @service_price,guarantee = @guarantee,master_id = @master ,customer_id = @customer";
+                string query = $"update shoes set Name = @Name,status = @status,left_time = @leftTime,instruction = @instruction,deadline = @deadTime,service_price = @service_price,guarantee = @guarantee,master_id = @master ,customer_id = @customer where id = {id}";
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
                     connection.Execute(query, new ShoesDTO
@@ -126,6 +126,11 @@ namespace Reparing_Shoes.Pattern
             {
                 return (ShoesDTO)Enumerable.Empty<ShoesDTO>();
             }
+        }
+
+        public ShoesDTO UpdateShoes(ShoesDTO shoes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

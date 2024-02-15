@@ -16,6 +16,8 @@ namespace Reparing_Shoes
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ICustomersRepository,CustomerRepository>();
+            builder.Services.AddScoped<IShoesRepository,ShoesRepository>();
+            builder.Services.AddScoped<ICustomersRepository,CustomerRepository>();
 
             var app = builder.Build();
 
