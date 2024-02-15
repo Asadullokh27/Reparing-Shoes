@@ -21,7 +21,7 @@ namespace Reparing_Shoes.Pattern
             {
                 using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
-                    string query = "insert into customers(fulla_name) values (@full_name)";
+                    string query = "insert into customer(full_name) values (@full_name)";
                     var parametr = new CustomerDTO
                     {
                         fullName = createCustomer.fullName

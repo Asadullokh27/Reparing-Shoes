@@ -11,7 +11,7 @@
 
         public string ? instruction { get; set; }
 
-        public DateTime deadTime { get; set; }
+        public DateTime deadLine { get; set; }
 
         public int service_price { get; set; }
 

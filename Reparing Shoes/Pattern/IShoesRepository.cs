@@ -9,6 +9,6 @@ namespace Reparing_Shoes.Pattern
         public IEnumerable<Shoes> GetAllShoes();
         public Shoes GetById(int id);
         public bool DeleteShoes(int Id);
-        public Shoes UpdateShoes(ShoesDTO shoes);
+        public ShoesDTO UpdateShoes(ShoesDTO shoes);
     }
 }
