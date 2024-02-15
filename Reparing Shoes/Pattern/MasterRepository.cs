@@ -23,6 +23,7 @@ namespace Reparing_Shoes.Pattern
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
+                    // sdsfgf
                     string query = "insert into master(full_name,salary,working_hours,working_days) values (@fullName,@salary,@workingHours,@workingDays)";
                     var parametr = new MasterDTO
                     {
