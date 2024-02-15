@@ -31,6 +31,7 @@ namespace Reparing_Shoes.Pattern
                         workingHours = master.workingHours,
                         workingDays = master.workingDays
                     };
+                    // smth
                     connection.Execute(query, parametr);
 
                 }
