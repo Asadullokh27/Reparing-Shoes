@@ -9,6 +9,7 @@ namespace Reparing_Shoes.Pattern
     public class CustomerRepository : ICustomersRepository
     {
         private IConfiguration _configuration;
+
         public CustomerRepository(IConfiguration configuration)
         {
             _configuration = configuration;
