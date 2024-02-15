@@ -46,6 +46,7 @@ namespace Reparing_Shoes.Pattern
 
         bool IMasterRepository.DeleteMaster(int id)
         {
+            // smt
             try
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
