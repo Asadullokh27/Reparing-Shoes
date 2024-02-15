@@ -3,6 +3,7 @@ using Reparing_Shoes.DTOModels;
 using Reparing_Shoes.Models;
 using Dapper;
 using System.Reflection.Metadata;
+using System.Diagnostics.Metrics;
 
 namespace Reparing_Shoes.Pattern
 {
@@ -38,22 +39,81 @@ namespace Reparing_Shoes.Pattern
 
         public bool DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                {
+                    string query = $"delete from master where id = @id";
+
+                    connection.Execute(query, new { id });
+
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public IEnumerable<CustomerDTO> GetAllCustomers()
+        public IEnumerable<Customer> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                {
+                    string query = "select * from customer";
+
+                    var result = connection.Query<Customer>(query);
+
+                    return result;
+                }
+            }
+            catch
+            {
+                return Enumerable.Empty<Customer>();
+            }
         }
 
         public Customer GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                {
+                    string query = "select * from customer where id = @id";
+
+                    var result = connection.ExecuteReader(query, new { id });
+
+                    return (Customer)result;
+                }
+            }
+            catch
+            {
+                return (Customer)Enumerable.Empty<Customer>();
+            }
         }
 
-        public Customer UpdateCustomer(int id, CustomerDTO customer)
+        public CustomerDTO UpdateCustomer(int id, CustomerDTO customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = "update customer set full_name = @fullName";
+                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Execute(query, new CustomerDTO
+                    {
+                        fullName = customer.fullName!,
+                        
+                    });
+                    return customer;
+
+                }
+            }
+            catch
+            {
+                return (CustomerDTO)Enumerable.Empty<Master>();
+            }
         }
     }
 }

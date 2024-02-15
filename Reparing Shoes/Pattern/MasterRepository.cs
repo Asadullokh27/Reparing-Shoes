@@ -106,7 +106,7 @@ namespace Reparing_Shoes.Pattern
         {
             try
             {
-                string query = "update customer set full_name = @fullName,salary = @salary,working_hours = @workingHours,working_days = @workingDays";
+                string query = "update master set full_name = @fullName,salary = @salary,working_hours = @workingHours,working_days = @workingDays";
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
                     connection.Execute(query, new MasterDTO
