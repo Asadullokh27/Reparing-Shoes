@@ -23,7 +23,7 @@ namespace Reparing_Shoes.Pattern
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
-                    // sdsfgf
+           
                     string query = "insert into master(full_name,salary,working_hours,working_days) values (@fullName,@salary,@workingHours,@workingDays)";
                     var parametr = new MasterDTO
                     {
@@ -32,11 +32,11 @@ namespace Reparing_Shoes.Pattern
                         workingHours = master.workingHours,
                         workingDays = master.workingDays
                     };
-                    // smth
+                    
                     connection.Execute(query, parametr);
 
                 }
-                return "created";
+                return "Successfully created!";
             }
             catch (Exception ex)
             {
@@ -46,12 +46,12 @@ namespace Reparing_Shoes.Pattern
 
         bool IMasterRepository.DeleteMaster(int id)
         {
-            // smtsfvg
+            
             try
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
-                    string query = $"delete from customer where id = @id";
+                    string query = $"delete from master where id = @id";
 
                     connection.Execute(query, new { id });
 

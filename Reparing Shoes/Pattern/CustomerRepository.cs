@@ -29,7 +29,7 @@ namespace Reparing_Shoes.Pattern
                     connection.Execute(query, parametr);
 
                 }
-                return "created";
+                return "Succesfully created!";
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Reparing_Shoes.Pattern
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
-                    string query = $"delete from master where id = @id";
+                    string query = $"delete from customer where id = @id";
 
                     connection.Execute(query, new { id });
 
