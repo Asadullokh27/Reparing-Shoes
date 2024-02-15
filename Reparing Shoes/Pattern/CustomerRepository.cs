@@ -3,6 +3,8 @@ using Reparing_Shoes.DTOModels;
 using Reparing_Shoes.Models;
 using Dapper;
 using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Xml.Linq;
 
 namespace Reparing_Shoes.Pattern
 {
@@ -19,7 +21,7 @@ namespace Reparing_Shoes.Pattern
             {
                 using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
-                    string query = "insert into customers(fulla_name) values (@full_name)";
+                    string query = "insert into customer(fulla_name) values (@full_name)";
                     var parametr = new CustomerDTO
                     {
                         fullName = createCustomer.fullName
@@ -37,17 +39,38 @@ namespace Reparing_Shoes.Pattern
 
         public bool DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            
         }
 
         public IEnumerable<CustomerDTO> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            
+            using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+
+                string query = "select * from customer";
+                var result = connection.Query<CustomerDTO>(query);
+
+                return result;
+
+            }
+
         }
 
         public Customer GetById(int id)
         {
-            throw new NotImplementedException();
+          
+            using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                string sql = "select * from customer where id = @id;";
+                connection.Execute(sql, new CustomerDTO
+                {
+                    Id = Customer.,
+                });
+
+                return viewModel;
+
+            }
         }
 
         public Customer UpdateCustomer(int id, CustomerDTO customer)
