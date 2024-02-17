@@ -3,6 +3,6 @@
     public class Customer
     {
         public int Id { get; set; }
-        public string fullName { get; set; }
+        public string full_name { get; set; }
     }
 }

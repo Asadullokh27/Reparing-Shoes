@@ -19,7 +19,7 @@ namespace Reparing_Shoes.DTOModels
         public string? guarantee { get; set; }
 
         public Master? master { get; set; }
-
+        public object Master { get; internal set; }
         public Customer? customer { get; set; }
     }
 }

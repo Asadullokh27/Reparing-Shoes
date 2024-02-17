@@ -52,7 +52,7 @@ namespace Reparing_Shoes.Pattern
                             shoes.customer = customer;
                             return shoes;
                         },
-                        splitOn: "Id" // Assuming the Id is the primary key of the Shoes table
+                        splitOn: "Id"
                     );
 
                     return result;
@@ -60,88 +60,82 @@ namespace Reparing_Shoes.Pattern
             }
             catch (Exception ex)
             {
-                // Handle the exception appropriately (logging, rethrowing, etc.)
-                Console.WriteLine($"An error occurred: {ex.Message}");
                 return Enumerable.Empty<Shoes>();
             }
         }
 
-        public Shoes GetById(int id)
+        public int Post(ShoesDTO shoes)
         {
-            try
-            {
-                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
-                {
-                    string query = "select * from shoes where id = @id";
-
-                    var result = connection.ExecuteReader(query, new { id });
-
-                    return (Shoes)result;
-                }
-            }
-            catch
-            {
-                return (Shoes)Enumerable.Empty<Shoes>();
-            }
+            throw new NotImplementedException();
         }
 
-        public ShoesDTO Post(ShoesDTO shoes)
-        {
-            try
-            {
-                using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-                {
-                    string query = "insert into shoes(Name,status,left_time,instruction,deadline,service_price,guarantee,master_id,customer_id) values (@Name,@status,@leftTime,@instruction,@deadTime,@service_price,@guarantee,@master,@customer)";
-                    var parametr = new ShoesDTO
-                    {
-                        Name = shoes.Name,
-                        status = shoes.status,
-                        leftTime = shoes.leftTime,
-                        instruction = shoes.instruction,
-                        deadTime = shoes.deadTime,
-                        service_price = shoes.service_price,
-                        guarantee = shoes.guarantee,
-                        master = shoes.master,
-                        customer = shoes.customer,
-                    };
-                    connection.Execute(query, parametr);
-                    return shoes;
-                }
-            }
-            catch (Exception )
-            {
-                return (ShoesDTO)Enumerable.Empty<ShoesDTO>();
-            }
-        }
 
-        public ShoesDTO UpdateShoes(ShoesDTO shoes,int id)
-        {
-            try
-            {
-                string query = $"update shoes set Name = @Name,status = @status,left_time = @leftTime,instruction = @instruction,deadline = @deadTime,service_price = @service_price,guarantee = @guarantee,master_id = @master ,customer_id = @customer where id = {id}";
-                using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
-                {
-                    connection.Execute(query, new ShoesDTO
-                    {
-                        Name = shoes.Name,
-                        status = shoes.status,
-                        leftTime = shoes.leftTime,
-                        instruction = shoes.instruction,
-                        deadTime = shoes.deadTime,
-                        service_price = shoes.service_price,
-                        master = shoes.master,
-                        customer = shoes.customer
 
-                    });
-                    return shoes;
+        /* public int Post(ShoesDTO shoes)
+         {
+             try
+             {
+                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                 {
+                     connection.Open();
 
-                }
-            }
-            catch
-            {
-                return (ShoesDTO)Enumerable.Empty<ShoesDTO>();
-            }
-        }
+                     string insertQuery = @"
+                 INSERT INTO shoes (Name, status, left_time, instruction, deadLine, service_price, guarantee, master_id, customer_id)
+                 VALUES (@Name, @Status, @LeftTime, @Instruction, @DeadTime, @ServicePrice, @Guarantee, @MasterId, @CustomerId);";
+
+                     int rowsAffected = connection.Execute(insertQuery, new
+                     {
+                         shoes.Name,
+                         shoes.status,
+                         shoes.leftTime,
+                         shoes.instruction,
+                         shoes.deadTime,
+                         shoes.service_price,
+                         shoes.guarantee,
+                         MasterId = shoes.Master?.Id, 
+                         CustomerId = shoes.Customer?.Id 
+                     });
+
+                     return rowsAffected;
+                 }
+             }
+             catch (Exception ex)
+             {
+
+                 return 0; 
+             }
+         }
+
+
+
+           public ShoesDTO UpdateShoes(ShoesDTO shoes,int id)
+           {
+               try
+               {
+                   string query = $"update shoes set Name = @Name,status = @status,left_time = @leftTime,instruction = @instruction,deadline = @deadTime,service_price = @service_price,guarantee = @guarantee,master_id = @master ,customer_id = @customer where id = {id}";
+                   using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
+                   {
+                       connection.Execute(query, new ShoesDTO
+                       {
+                           Name = shoes.Name,
+                           status = shoes.status,
+                           leftTime = shoes.leftTime,
+                           instruction = shoes.instruction,
+                           deadTime = shoes.deadTime,
+                           service_price = shoes.service_price,
+                           master = master,
+                           customer_id = shoes.customer_id
+
+                       });
+                       return shoes;
+
+                   }
+               }
+               catch
+               {
+                   return (ShoesDTO)Enumerable.Empty<ShoesDTO>();
+               }
+          }*/
 
         public ShoesDTO UpdateShoes(ShoesDTO shoes)
         {

@@ -2,6 +2,7 @@
 using Reparing_Shoes.DTOModels;
 using Reparing_Shoes.Models;
 using Reparing_Shoes.Pattern;
+using Reparing_Shoes.Servise;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,7 @@ namespace Reparing_Shoes.Controllers
     public class ShoesController : ControllerBase
     {
         private readonly IShoesRepository _shoesRepository;
+        private readonly IShoescs _shoescs;
 
         public ShoesController(IShoesRepository shoesRepository)
         {
@@ -36,7 +38,7 @@ namespace Reparing_Shoes.Controllers
         {
             try
             {
-                var response = _shoesRepository.GetById(id);
+                var response = _shoescs.GetByID(id);
                 return Ok(response);
             }
             catch (Exception ex)
