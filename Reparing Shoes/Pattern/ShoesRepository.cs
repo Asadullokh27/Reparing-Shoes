@@ -34,19 +34,34 @@ namespace Reparing_Shoes.Pattern
 
         public IEnumerable<Shoes> GetAllShoes()
         {
-            try 
+            try
             {
                 using (var connection = new NpgsqlConnection(_configuration!.GetConnectionString("DefaultConnection")))
                 {
-                    string query = "select * from shoes";
+                    string query = @"
+                SELECT s.*, m.*, c.* 
+                FROM shoes s 
+                LEFT JOIN master m ON s.master_id = m.id 
+                LEFT JOIN customer c ON s.customer_id = c.id;";
 
-                    var result = connection.Query<Shoes>(query);
+                    var result = connection.Query<Shoes, Master, Customer, Shoes>(
+                        query,
+                        (shoes, master, customer) =>
+                        {
+                            shoes.master = master;
+                            shoes.customer = customer;
+                            return shoes;
+                        },
+                        splitOn: "Id" // Assuming the Id is the primary key of the Shoes table
+                    );
 
                     return result;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // Handle the exception appropriately (logging, rethrowing, etc.)
+                Console.WriteLine($"An error occurred: {ex.Message}");
                 return Enumerable.Empty<Shoes>();
             }
         }
